@@ -1,163 +1,141 @@
-\# Sports Player Tracking and Re-Identification
+# ⚽ Sports Player Tracking and Re-Identification
 
-This project is about tracking football players and referees in a video using a trained YOLO model and Deep SORT tracking algorithm. It works on single-camera sports videos and tries to follow each player using unique IDs, even during collisions.
+This project performs **player and referee tracking** in football match videos using a trained **YOLOv11 model** and **Deep SORT** tracker. It maintains unique IDs per person across frames and handles collisions smartly.
 
-\---
+---
 
-\## Folder Structure
+## 📁 Folder Structure
 
-.
+Your project directory should look like this:
 
-├── models/
+player_reid/
 
-│ └── best.pt # YOLOv11 trained model
+├── **models**/
 
-├── videos/
+│ └── best.pt # Trained YOLOv11 model (you need to place it here)
 
-│ ├── 15sec\_input\_720p.mp4
+├── **videos**/
 
-│ ├── broadcast.mp4
+│ ├── 15sec_input_720p.mp4 # Input video 1
 
-│ └── tacticam.mp4
+│ ├── broadcast.mp4 # Input video 2
 
-├── outputs/
+│ └── tacticam.mp4 # Input video 3
 
-│ └── reliable\_tracking.mp4 # Output with bounding boxes and tracking
 
-├── src/
+├── **outputs**/
 
-│ ├── track.py # Main tracking script
+│ └── reliable_tracking.mp4 # Output video (auto-generated after processing)
 
-│ └── detect.py # Simple detection script (without tracking)
 
-├── README.md
+├── **src**/
 
-└── report.pdf # Description of what was done
+│ 
+├── **track.py** # Main tracking script (with ID, collision, trail)
+│ 
+└── **detect.py** # Simple detection (no tracking)
 
-yaml
 
-Copy
+├── **README.md** # This file
 
-Edit
+└── **report.md** # Project explanation/report
+---
 
-\---
 
-\## How to Run
+> ✅ Make sure to create `models/`, `videos/`, and `outputs/` folders manually before running the code.
 
-\### 1. Install Required Libraries
+---
 
-Make sure you are using Python 3.8 or higher.
+## 🧩 Dependencies
 
-Install the required libraries by running:
+Install Python 3.8 or higher. Then install required packages:
 
-\`\`\`bash
+```bash
+pip install ultralytics opencv-python deep_sort_realtime torchvision torch
+```
 
-pip install ultralytics opencv-python deep\_sort\_realtime torchvision torch
+## 🚀 How to Run
 
-A GPU is recommended for better speed, but it can run on CPU too.
+### ▶️ 1. Run Full Tracking with Re-Identification
 
-2\. Run the Tracking Code
+This uses **YOLO + Deep SORT** and includes:
 
-bash
+- ✅ ID tracking  
+- 🟢 Trajectory drawing  
+- 🔴 Collision detection  
+- 🟥 Red box for frozen tracks during collisions  
 
-Copy
-
-Edit
-
+```bash
 python src/track.py
+```
 
-This will show a list of available .mp4 videos in the videos/ folder. Type the number for the video you want to process.
+This will:
 
-The output video will be saved as:
+- 📂 Show a numbered list of videos in the `videos/` folder  
+- 🔢 Ask you to choose one  
+- 💾 Save the result to: `outputs/reliable_tracking.mp4`
 
-bash
+---
 
-Copy
+### 👁️ 2. Run Detection Only (YOLO output, no tracking)
 
-Edit
+If you only want to test the **YOLOv11** detector:
 
-outputs/reliable\_tracking.mp4
-
-3\. Run Simple Detection (without tracking)
-
-If you only want to test YOLO detections without tracking, use:
-
-bash
-
-Copy
-
-Edit
-
+```bash
 python src/detect.py
+```
 
-Project Features
+## 💡 Features
 
-Detects players and referees
+- 🎯 Detects **players** and **referees**
+- 🆔 Tracks each player across frames with a **unique ID**
+- 🔄 Detects **collisions** and freezes tracks to prevent ID switching
+- 🟢 Draws **movement trails** to visualize player paths
+- 🎞️ Supports **multiple input videos** with selection menu
 
-Tracks each player across frames
+---
 
-Assigns unique ID to each person
+## 🎥 Output Description
 
-Detects collisions between players
+After running tracking:
 
-Freezes track ID when collision happens to avoid ID switches
+**✅ Processing complete: 201 frames**  
+**Avg FPS: 0.92 | Latency: 1084.6 ms**
 
-Draws trajectories to show player movement
 
-Supports multiple videos — you can select which video to process
+The output video (`outputs/reliable_tracking.mp4`) will include:
 
-Output Example (Your Result)
+- ✅ **Green or colored boxes** with ID numbers on each player
+- 🔴 **Red boxes** during player collisions
+- 🟢 **White trails** showing player movement
+- ⚪ **White labels** showing how many times a player was tracked (hit count)
+- 🟠 **Collision circles** when players are close
 
-text
+---
 
-Copy
+## ⚙️ Model & Class Info
 
-Edit
+- `models/best.pt` — Custom-trained **YOLOv11** model
+- **Player class index**: `2`
+- **Referee class index**: `3`
+- Ignores very small boxes to filter distant/noisy detections
+- Detection **confidence threshold**: `0.5`
 
-✅ Processing complete: 201 frames
+---
 
-Avg FPS: 0.92 | Latency: 1084.6 ms
+## 📄 Report
 
-Notes
+See `report.pdf` for detailed information about:
 
-The model used (best.pt) was trained to detect football players and referees.
+- ✅ The **approach** and system design
+- ✅ What worked and what didn’t
+- ✅ Challenges faced and how they were handled
+- ✅ What could be improved with more time and data
 
-Player class index: 2
+---
 
-Referee class index: 3
+## 👨‍💻 Author
 
-The code filters out very small boxes to avoid false detections.
+**Adarsh Prasad**  
+**Project**: Sports Player Re-Identification Using YOLOv11 + Deep SORT
 
-The detection confidence threshold is set to 0.5.
-
-What’s Inside the Output
-
-The final video will have:
-
-Boxes with ID numbers on each player
-
-Red boxes during collisions
-
-White trails (lines) showing player movement
-
-Label showing how many times a player was tracked
-
-Collision circles when players are close
-
-Report
-
-All details about:
-
-What was tried
-
-What worked and what didn’t
-
-Challenges faced
-
-How to improve further
-
-...are written in the report.pdf file in the main folder.
-
-Author
-
-Adarsh Prasad
