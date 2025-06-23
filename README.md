@@ -50,6 +50,11 @@ player_reid/
 
 > ✅ Make sure to create `models/`, `videos/`, and `outputs/` folders manually before running the code.
 
+**[📁 Download from Google Drive (MODEL) ](https://drive.google.com/file/d/1-5fOSHOSB9UXyP_enOoZNAMScrePVcMD/view)**
+**[📁 Download from Google Drive (IMAGE) ](https://drive.google.com/drive/folders/1Nx6H_n0UUI6L-6i8WknXd4Cv2c3VjZTP)**
+**(DON'T CHANGE THE NAMES OF EITHER MODEL OR VIDEOS(ALL 3 VIDEOS NEED TO BE LOADED FIRST)**
+** REFER IMAGE BELOW**
+![Image](https://github.com/user-attachments/assets/e48c8a64-e198-4862-8e07-ae1f9baf51c9)
 ---
 
 ## 🧩 Dependencies
