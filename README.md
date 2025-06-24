@@ -13,38 +13,24 @@ This project performs **player and referee tracking** in football match videos u
 ## 📁 Folder Structure
 
 Your project directory should look like this:
-
+```arduino
 player_reid/
-
-├── **models**/
-
+├── models/
 │ └── best.pt # Trained YOLOv11 model (you need to place it here)
-
-├── **videos**/
-
+├── videos/
 │ ├── 15sec_input_720p.mp4 # Input video 1
-
 │ ├── broadcast.mp4 # Input video 2
-
 │ └── tacticam.mp4 # Input video 3
-
-
-├── **outputs**/
-
+├── outputs/
 │ └── reliable_tracking.mp4 # Output video (auto-generated after processing)
-
-
-├── **src**/
-
-│ 
-├── **track.py** # Main tracking script (with ID, collision, trail)
-│ 
-└── **detect.py** # Simple detection (no tracking)
-
-
-├── **README.md** # This file
-
-└── **report.md** # Project explanation/report
+├── src/
+    │ 
+    ├──track.py # Main tracking script (with ID, collision, trail)
+    │ 
+    └── detect.py # Simple detection (no tracking)
+├── README.md # This file
+└── report.md # Project explanation/report
+```
 ---
 
 
